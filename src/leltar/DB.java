@@ -247,6 +247,12 @@ public class DB {
         }
     }
     
+    /**
+     * Hozzáadja az adatbázishoz az ID-ket és az adatokat
+     * @param teremid
+     * @param eszkozid
+     * @param adatok
+     */
     public void leltar_hozzaad(int teremid, int eszkozid, String adatok) {
         String s = "INSERT INTO leltar (teremid,eszkozid,egyeb) VALUES(?,?,?);";
         try (Connection kapcs = DriverManager.getConnection(dbUrl, user, pass);
@@ -263,6 +269,12 @@ public class DB {
         }
     }
     
+    /**
+     * Módosítja az adatbázisban a terem tábla adatait
+     * @param teremid
+     * @param tsz
+     * @param fh - felhasználás (lehet üres)
+     */
     public void terem_modosit(int teremid, String tsz, String fh) {
         if (tsz.isEmpty())
             return;
@@ -282,6 +294,12 @@ public class DB {
         }
     }
 
+    /**
+     * Módosítja az adatbázisban az eszköz tábla adatait
+     * @param eszkozid
+     * @param nev
+     * @param ev
+     */
     public void eszkoz_modosit(int eszkozid, String nev, String ev) {
         if (nev.isEmpty())
             return;
@@ -302,6 +320,13 @@ public class DB {
         }        
     }
     
+    /**
+     * Módosítja az adatbázisban a leltár tábla adatait
+     * @param leltarid
+     * @param teremid
+     * @param eszkozid
+     * @param adatok
+     */
     public void leltar_modosit(int leltarid, int teremid, 
                                int eszkozid, String adatok) {
         String s = "UPDATE leltar SET teremid=?, eszkozid=?, egyeb=? "
@@ -321,6 +346,10 @@ public class DB {
         }        
     }
     
+    /**
+     * Törli a terem táblából a megadott azonosítójú elemet
+     * @param teremid
+     */
     public void terem_torol(int teremid) {
         String s = "DELETE FROM termek WHERE teremid=?;";
         try (Connection kapcs = DriverManager.getConnection(dbUrl, user, pass);
@@ -331,6 +360,11 @@ public class DB {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }                
     }
+
+    /**
+     * Törli az eszköz táblából a megadott azonosítójú elemet
+     * @param eszkozid
+     */
     public void eszkoz_torol(int eszkozid) {
         String s = "DELETE FROM eszkozok WHERE eszkozid=?;";
         try (Connection kapcs = DriverManager.getConnection(dbUrl, user, pass);
@@ -342,6 +376,10 @@ public class DB {
         }                
     }
     
+    /**
+     * Törli a leltár táblából a megadott azonosítójú elemet
+     * @param leltarid
+     */
     public void leltar_torol(int leltarid) {
         String s = "DELETE FROM leltar WHERE leltarid=?;";
         try (Connection kapcs = DriverManager.getConnection(dbUrl, user, pass);
