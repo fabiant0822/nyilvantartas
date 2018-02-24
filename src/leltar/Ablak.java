@@ -18,6 +18,9 @@ public class Ablak extends javax.swing.JFrame {
         ab.leltar_be(tblLeltar_3);
     }
         
+    /**
+     * Ha kijelölünk egy sort a termek táblában, akkor kimásolja a beviteli mezőkbe.
+     */
     private void termek_tablabol() {
         int i = tblTermek_1.getSelectedRow();
         txtTerem_1.setText(tblTermek_1.getValueAt(i, 1).toString());
@@ -28,6 +31,9 @@ public class Ablak extends javax.swing.JFrame {
             txtFelh_1.setText("");
     }
 
+    /**
+     * Ha kijelölünk egy sort az eszközök táblában, akkor kimásolja a beviteli mezőkbe.
+     */
     private void eszkozok_tablabol() {
         int i = tblEszkoz_2.getSelectedRow();
         txtEszkoz_2.setText(tblEszkoz_2.getValueAt(i, 1).toString());
@@ -38,6 +44,10 @@ public class Ablak extends javax.swing.JFrame {
             txtEv_2.setText("");
     }
 
+    /**
+     * Ha kijelölünk egy sort a leltár táblában, 
+     * akkor kimásolja a beviteli mezőbe és a combobox-okba.
+     */
     private void leltar_tablabol() {
         int i = tblLeltar_3.getSelectedRow();
         String terem = tblLeltar_3.getValueAt(i, 1).toString();
@@ -124,9 +134,10 @@ public class Ablak extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblTermek_1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblTermek_1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblTermek_1MouseClicked(evt);
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tblTermek_1MouseReleased(evt);
             }
         });
         tblTermek_1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -241,9 +252,10 @@ public class Ablak extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblEszkoz_2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblEszkoz_2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblEszkoz_2MouseClicked(evt);
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tblEszkoz_2MouseReleased(evt);
             }
         });
         tblEszkoz_2.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -364,9 +376,10 @@ public class Ablak extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblLeltar_3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblLeltar_3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblLeltar_3MouseClicked(evt);
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tblLeltar_3MouseReleased(evt);
             }
         });
         tblLeltar_3.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -532,10 +545,6 @@ public class Ablak extends javax.swing.JFrame {
         leltar_tablabol();
     }//GEN-LAST:event_tblLeltar_3KeyReleased
 
-    private void tblLeltar_3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLeltar_3MouseClicked
-        leltar_tablabol();
-    }//GEN-LAST:event_tblLeltar_3MouseClicked
-
     private void btntorol_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntorol_2ActionPerformed
         int i = tblEszkoz_2.getSelectedRow();
         if (i == -1) return;
@@ -563,10 +572,6 @@ public class Ablak extends javax.swing.JFrame {
             || evt.getKeyCode() == KeyEvent.VK_PAGE_DOWN)
         eszkozok_tablabol();
     }//GEN-LAST:event_tblEszkoz_2KeyReleased
-
-    private void tblEszkoz_2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEszkoz_2MouseClicked
-        eszkozok_tablabol();
-    }//GEN-LAST:event_tblEszkoz_2MouseClicked
 
     private void btntorol_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntorol_1ActionPerformed
         int i = tblTermek_1.getSelectedRow();
@@ -596,13 +601,21 @@ public class Ablak extends javax.swing.JFrame {
         termek_tablabol();
     }//GEN-LAST:event_tblTermek_1KeyReleased
 
-    private void tblTermek_1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTermek_1MouseClicked
-        termek_tablabol();
-    }//GEN-LAST:event_tblTermek_1MouseClicked
-
     private void cbxEszkoz_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxEszkoz_3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxEszkoz_3ActionPerformed
+
+    private void tblTermek_1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTermek_1MouseReleased
+        termek_tablabol();
+    }//GEN-LAST:event_tblTermek_1MouseReleased
+
+    private void tblEszkoz_2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEszkoz_2MouseReleased
+        eszkozok_tablabol();
+    }//GEN-LAST:event_tblEszkoz_2MouseReleased
+
+    private void tblLeltar_3MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLeltar_3MouseReleased
+        leltar_tablabol();
+    }//GEN-LAST:event_tblLeltar_3MouseReleased
 
     /**
      * @param args the command line arguments

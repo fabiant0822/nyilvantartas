@@ -136,6 +136,11 @@ public class DB {
         }
     }
 
+    /**
+     * kiolvassa a terem ID-t
+     * @param teremszam
+     * @return
+     */
     public int get_teremid(String teremszam) {
         String s = "SELECT teremid FROM termek WHERE teremszam=?";
         int tid = -1;
@@ -152,6 +157,11 @@ public class DB {
         return tid;
     }
     
+    /**
+     * kiolvassa az eszköz ID-t
+     * @param nev
+     * @return
+     */
     public int get_eszkozid(String nev) {
         String s = "SELECT eszkozid FROM eszkozok WHERE nev=?";
         int eid = -1;
@@ -168,10 +178,21 @@ public class DB {
         return eid;
     }
     
+    /**
+     * Levágja a bevinni kívánt adatokat az adatbázisban megadott méretre
+     * @param s a bevitt adat változója
+     * @param n az adattípus megadott karakterszáma
+     * @return 
+     */
     private String levag(String s, int n) {
         return s.length() > n ? s.substring(0, n) : s;
     }
     
+    /**
+     * Hozzáadja az adatbázishoz a teremszámot és a felhasználását a teremnek
+     * @param tsz teremszám
+     * @param fh felhasználás
+     */
     public void terem_hozzaad(String tsz, String fh) {
         if (tsz.isEmpty())
             return;
@@ -189,6 +210,12 @@ public class DB {
         }
     }
     
+    /**
+     * A szam metódus az s sztriget számmá alakítja és visszaadja.
+     * Ha nem sikerült 0-t ad vissza
+     * @param s - az átalakítandó szöveg
+     * @return - a szám, vagy nulla
+     */
     private int szam(String s) {
         try {
             return Integer.parseInt(s);
@@ -197,6 +224,11 @@ public class DB {
         }
     }
 
+    /**
+     * Hozzáadja az adatbázishoz az eszköz nevét és a beszerzés évét
+     * @param nev
+     * @param ev 
+     */
     public void eszkoz_hozzaad(String nev, String ev) {
         if (nev.isEmpty())
             return;
@@ -205,7 +237,7 @@ public class DB {
                 PreparedStatement parancs = kapcs.prepareStatement(s)) {
             parancs.setString(1, levag(nev.trim(), 50));
             int n = szam(ev);
-            if (n > 0)
+            if (n > 1980 && n < 2050)
                 parancs.setInt(2, n);
             else
                 parancs.setNull(2, java.sql.Types.INTEGER);
