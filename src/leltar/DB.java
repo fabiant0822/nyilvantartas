@@ -118,7 +118,7 @@ public class DB {
         }
     }
 
-    public int get_teremid(String teremszam) {
+    /* public int get_teremid(String teremszam) {
         String s = "SELECT teremid FROM termek WHERE teremszam=?";
         int tid = -1;
         try (Connection kapcs = DriverManager.getConnection(dbUrl,user,pass);
@@ -133,8 +133,9 @@ public class DB {
         }
         return tid;
     }
+    */
     
-    public int get_eszkozid(String nev) {
+    /* public int get_eszkozid(String nev) {
         String s = "SELECT eszkozid FROM eszkozok WHERE nev=?";
         int eid = -1;
         try (Connection kapcs = DriverManager.getConnection(dbUrl,user,pass);
@@ -149,6 +150,7 @@ public class DB {
         }
         return eid;
     }
+    */
     
     private String levag(String s, int n) {
         return s.length() > n ? s.substring(0, n) : s;

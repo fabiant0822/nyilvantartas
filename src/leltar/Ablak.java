@@ -51,6 +51,20 @@ public class Ablak extends javax.swing.JFrame {
             txtAdatok_3.setText("");
     }
     
+    private int get_teremid(String tsz) {
+        int i = 0;
+        while (!tblTermek_1.getValueAt(i, 1).equals(tsz))
+            i++;
+        return Integer.parseInt(tblTermek_1.getValueAt(i, 0).toString());
+    }
+    
+    private int get_eszkozid(String nev) {
+        int i = 0;
+        while (!tblEszkoz_2.getValueAt(i, 1).equals(nev))
+            i++;
+        return Integer.parseInt(tblEszkoz_2.getValueAt(i, 0).toString());
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -542,8 +556,8 @@ public class Ablak extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHozzaad_2ActionPerformed
 
     private void btnHozzaad_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHozzaad_3ActionPerformed
-        ab.leltar_hozzaad(ab.get_teremid(cbxTerem_3.getSelectedItem().toString()),
-                          ab.get_eszkozid(cbxEszkoz_3.getSelectedItem().toString()),
+        ab.leltar_hozzaad(get_teremid(cbxTerem_3.getSelectedItem().toString()),
+                          get_eszkozid(cbxEszkoz_3.getSelectedItem().toString()),
                           txtAdatok_3.getText());
         ab.leltar_be(tblLeltar_3);
     }//GEN-LAST:event_btnHozzaad_3ActionPerformed
@@ -568,8 +582,8 @@ public class Ablak extends javax.swing.JFrame {
         int i = tblLeltar_3.getSelectedRow();
         if (i == -1) return;
         ab.leltar_modosit(Integer.parseInt(tblLeltar_3.getValueAt(i, 0).toString()),
-                ab.get_teremid(cbxTerem_3.getSelectedItem().toString()),
-                ab.get_eszkozid(cbxEszkoz_3.getSelectedItem().toString()),
+                get_teremid(cbxTerem_3.getSelectedItem().toString()),
+                get_eszkozid(cbxEszkoz_3.getSelectedItem().toString()),
                 txtAdatok_3.getText());
         ab.leltar_be(tblLeltar_3);
     }//GEN-LAST:event_btnModosit_3ActionPerformed
