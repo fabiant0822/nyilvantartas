@@ -224,9 +224,9 @@ public class DB {
         }
     }
     
-    public void terem_modosit(int teremid, String tsz, String fh) {
+    public int terem_modosit(int teremid, String tsz, String fh) {
         if (tsz.isEmpty())
-            return;
+            return 0;
         String s = "UPDATE termek SET teremszam=?, felhasznalas=? "
                  + "WHERE teremid=?";
         try (Connection kapcs = DriverManager.getConnection(dbUrl, user, pass);
@@ -237,15 +237,16 @@ public class DB {
             else
                 parancs.setString(2, levag(fh.trim(), 30));
             parancs.setInt(3, teremid);
-            parancs.executeUpdate();
+            return parancs.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
+            return 0;
         }
     }
 
-    public void eszkoz_modosit(int eszkozid, String nev, String ev) {
+    public int eszkoz_modosit(int eszkozid, String nev, String ev) {
         if (nev.isEmpty())
-            return;
+            return 0;
         String s = "UPDATE eszkozok SET nev=?, ev=? "
                  + "WHERE eszkozid=?";
         try (Connection kapcs = DriverManager.getConnection(dbUrl, user, pass);
@@ -257,13 +258,14 @@ public class DB {
             else
                 parancs.setNull(2, java.sql.Types.INTEGER);
             parancs.setInt(3, eszkozid);
-            parancs.executeUpdate();
+            return parancs.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
+            return 0;
         }        
     }
     
-    public void leltar_modosit(int leltarid, int teremid, 
+    public int leltar_modosit(int leltarid, int teremid, 
                                int eszkozid, String adatok) {
         String s = "UPDATE leltar SET teremid=?, eszkozid=?, egyeb=? "
                  + "WHERE leltarid=?";
@@ -276,9 +278,10 @@ public class DB {
             else
                 parancs.setNull(3,java.sql.Types.VARCHAR);
             parancs.setInt(4, leltarid);
-            parancs.executeUpdate();
+            return parancs.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
+            return 0;
         }        
     }
     

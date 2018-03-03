@@ -111,7 +111,42 @@ public class Ablak extends javax.swing.JFrame {
         leltar_tablabol();
     }
      
+    // megkeressük a terem táblában a kért ID-jű elemet
+    private void terem_kijelol(int tid) {
+        int sordb = tblTermek_1.getRowCount();
+        for (int i = 0; i < sordb; i++) {
+            int id = Integer.parseInt(tblTermek_1.getValueAt(i, 0).toString());
+            if (id == tid) {
+                tblTermek_1.setRowSelectionInterval(i, i);
+                termek_tablabol();
+                break;
+            }
+        }
+    }
     
+    private void eszkoz_kijelol(int eid) {
+        int sordb = tblEszkoz_2.getRowCount();
+        for (int i = 0; i < sordb; i++) {
+            int id = Integer.parseInt(tblEszkoz_2.getValueAt(i, 0).toString());
+            if (id == eid) {
+                tblEszkoz_2.setRowSelectionInterval(i, i);
+                eszkozok_tablabol();
+                break;
+            }
+        }
+    }
+    
+    private void leltar_kijelol(int lid) {
+        int sordb = tblLeltar_3.getRowCount();
+        for (int i = 0; i < sordb; i++) {
+            int id = Integer.parseInt(tblLeltar_3.getValueAt(i, 0).toString());
+            if (id == lid) {
+                tblLeltar_3.setRowSelectionInterval(i, i);
+                leltar_tablabol();
+                break;
+            }
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -628,27 +663,31 @@ public class Ablak extends javax.swing.JFrame {
     private void btnModosit_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModosit_1ActionPerformed
         int i = tblTermek_1.getSelectedRow();
         if (i == -1) return;
-        ab.terem_modosit(Integer.parseInt(tblTermek_1.getValueAt(i, 0).toString()),
-                         txtTerem_1.getText(), txtFelh_1.getText());
-        ab.termek_be(tblTermek_1, cbxTerem_3);
+        int tid = Integer.parseInt(tblTermek_1.getValueAt(i, 0).toString());
+        if (ab.terem_modosit(tid, txtTerem_1.getText(), txtFelh_1.getText())>0)
+                ab.termek_be(tblTermek_1, cbxTerem_3);
+        terem_kijelol(tid);
     }//GEN-LAST:event_btnModosit_1ActionPerformed
 
     private void btnModosit_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModosit_2ActionPerformed
         int i = tblEszkoz_2.getSelectedRow();
         if (i == -1) return;
-        ab.eszkoz_modosit(Integer.parseInt(tblEszkoz_2.getValueAt(i, 0).toString()),
-                          txtEszkoz_2.getText(), txtEv_2.getText());
-        ab.eszkozok_be(tblEszkoz_2, cbxEszkoz_3);
+        int eid = Integer.parseInt(tblEszkoz_2.getValueAt(i, 0).toString());
+        if (ab.eszkoz_modosit(eid, txtEszkoz_2.getText(), txtEv_2.getText())>0)
+            ab.eszkozok_be(tblEszkoz_2, cbxEszkoz_3);
+        eszkoz_kijelol(eid);
     }//GEN-LAST:event_btnModosit_2ActionPerformed
 
     private void btnModosit_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModosit_3ActionPerformed
         int i = tblLeltar_3.getSelectedRow();
         if (i == -1) return;
-        ab.leltar_modosit(Integer.parseInt(tblLeltar_3.getValueAt(i, 0).toString()),
-                get_teremid(cbxTerem_3.getSelectedItem().toString()),
-                get_eszkozid(cbxEszkoz_3.getSelectedItem().toString()),
-                txtAdatok_3.getText());
-        ab.leltar_be(tblLeltar_3);
+        int tid = get_teremid(cbxTerem_3.getSelectedItem().toString());
+        int eid = get_eszkozid(cbxEszkoz_3.getSelectedItem().toString());
+        int lid = Integer.parseInt(tblLeltar_3.getValueAt(i, 0).toString());
+        if (ab.leltar_modosit(lid, tid, eid, txtAdatok_3.getText())>0) {
+            ab.leltar_be(tblLeltar_3);
+            leltar_kijelol(lid);
+        }
     }//GEN-LAST:event_btnModosit_3ActionPerformed
 
     private void btntorol_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntorol_1ActionPerformed
