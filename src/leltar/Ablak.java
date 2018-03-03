@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 
 /**
  * Leltár program
- * @author Tóth József
+ * @author Fábián Tamás
  */
 public class Ablak extends javax.swing.JFrame {
 
@@ -64,6 +64,53 @@ public class Ablak extends javax.swing.JFrame {
             i++;
         return Integer.parseInt(tblEszkoz_2.getValueAt(i, 0).toString());
     }
+    
+    // megkeressük a terem táblában (tblTermek_1) a legnagyobb ID-jű termet
+    private void terem_max_kijelol() {
+        int sordb = tblTermek_1.getRowCount();
+        int max = 0;
+        int sor = 0;
+        for (int i = 0; i < sordb; i++) {
+            int n = Integer.parseInt(tblTermek_1.getValueAt(i, 0).toString());
+            if (n > max) {
+                max = n;
+                sor = i;
+            }
+        }
+        tblTermek_1.setRowSelectionInterval(sor, sor);
+        termek_tablabol();
+    }
+    
+     private void eszkoz_max_kijelol() {
+        int sordb = tblEszkoz_2.getRowCount();
+        int max = 0;
+        int sor = 0;
+        for (int i = 0; i < sordb; i++) {
+            int n = Integer.parseInt(tblEszkoz_2.getValueAt(i, 0).toString());
+            if (n > max) {
+                max = n;
+                sor = i;
+            }
+        }
+        tblEszkoz_2.setRowSelectionInterval(sor, sor);
+        eszkozok_tablabol();
+    }
+     
+     private void leltar_max_kijelol() {
+        int sordb = tblLeltar_3.getRowCount();
+        int max = 0;
+        int sor = 0;
+        for (int i = 0; i < sordb; i++) {
+            int n = Integer.parseInt(tblLeltar_3.getValueAt(i, 0).toString());
+            if (n > max) {
+                max = n;
+                sor = i;
+            }
+        }
+        tblLeltar_3.setRowSelectionInterval(sor, sor);
+        leltar_tablabol();
+    }
+     
     
 
     /**
@@ -546,20 +593,36 @@ public class Ablak extends javax.swing.JFrame {
     }//GEN-LAST:event_tblLeltar_3KeyReleased
 
     private void btnHozzaad_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHozzaad_1ActionPerformed
-        ab.terem_hozzaad(txtTerem_1.getText(),txtFelh_1.getText());
-        ab.termek_be(tblTermek_1, cbxTerem_3);
+        int n = ab.terem_hozzaad(txtTerem_1.getText(),txtFelh_1.getText());
+        if (n > 0) {
+            ab.termek_be(tblTermek_1, cbxTerem_3);
+            terem_max_kijelol();
+            txtTerem_1.requestFocus();
+            txtTerem_1.selectAll();
+        }
     }//GEN-LAST:event_btnHozzaad_1ActionPerformed
 
     private void btnHozzaad_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHozzaad_2ActionPerformed
-        ab.eszkoz_hozzaad(txtEszkoz_2.getText(),txtEv_2.getText());
-        ab.eszkozok_be(tblEszkoz_2, cbxEszkoz_3);
+        int n = ab.eszkoz_hozzaad(txtEszkoz_2.getText(),txtEv_2.getText());
+        if (n > 0) {
+            ab.eszkozok_be(tblEszkoz_2, cbxEszkoz_3);
+            eszkoz_max_kijelol();
+            txtEszkoz_2.requestFocus();
+            txtEszkoz_2.selectAll();
+        }    
     }//GEN-LAST:event_btnHozzaad_2ActionPerformed
 
     private void btnHozzaad_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHozzaad_3ActionPerformed
-        ab.leltar_hozzaad(get_teremid(cbxTerem_3.getSelectedItem().toString()),
-                          get_eszkozid(cbxEszkoz_3.getSelectedItem().toString()),
-                          txtAdatok_3.getText());
-        ab.leltar_be(tblLeltar_3);
+        String tsz = cbxTerem_3.getSelectedItem().toString();
+        String nev = cbxEszkoz_3.getSelectedItem().toString();
+        int tid = get_teremid(tsz);
+        int eid = get_eszkozid(nev);
+        int n = ab.leltar_hozzaad(tid, eid, txtAdatok_3.getText());
+        if (n > 0) {
+            ab.leltar_be(tblLeltar_3);
+            leltar_max_kijelol();
+            txtAdatok_3.requestFocus();
+        }
     }//GEN-LAST:event_btnHozzaad_3ActionPerformed
 
     private void btnModosit_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModosit_1ActionPerformed

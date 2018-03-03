@@ -156,9 +156,9 @@ public class DB {
         return s.length() > n ? s.substring(0, n) : s;
     }
     
-    public void terem_hozzaad(String tsz, String fh) {
+    public int terem_hozzaad(String tsz, String fh) {
         if (tsz.isEmpty())
-            return;
+            return 0; // értéket ad vissza 1-et, vagy 0-át, hogy tudjuk sikerült e a bevitel.
         String s = "INSERT INTO termek (teremszam, felhasznalas) VALUES(?,?);";
         try (Connection kapcs = DriverManager.getConnection(dbUrl, user, pass);
                 PreparedStatement parancs = kapcs.prepareStatement(s)) {
@@ -167,9 +167,10 @@ public class DB {
                 parancs.setNull(2, java.sql.Types.VARCHAR);
             else
                 parancs.setString(2, levag(fh.trim(), 30));
-            parancs.executeUpdate();
+            return parancs.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
+            return 0;
         }
     }
     
@@ -187,9 +188,9 @@ public class DB {
         }
     }
 
-    public void eszkoz_hozzaad(String nev, String ev) {
+    public int eszkoz_hozzaad(String nev, String ev) {
         if (nev.isEmpty())
-            return;
+            return 0;
         String s = "INSERT INTO eszkozok (nev,ev) VALUES(?,?);";
         try (Connection kapcs = DriverManager.getConnection(dbUrl, user, pass);
                 PreparedStatement parancs = kapcs.prepareStatement(s)) {
@@ -199,13 +200,14 @@ public class DB {
                 parancs.setInt(2, n);
             else
                 parancs.setNull(2, java.sql.Types.INTEGER);
-            parancs.executeUpdate();
+            return parancs.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
+            return 0;
         }
     }
     
-    public void leltar_hozzaad(int teremid, int eszkozid, String adatok) {
+    public int leltar_hozzaad(int teremid, int eszkozid, String adatok) {
         String s = "INSERT INTO leltar (teremid,eszkozid,egyeb) VALUES(?,?,?);";
         try (Connection kapcs = DriverManager.getConnection(dbUrl, user, pass);
                 PreparedStatement parancs = kapcs.prepareStatement(s)) {
@@ -215,9 +217,10 @@ public class DB {
                 parancs.setString(3,levag(adatok.trim(), 30));
             else
                 parancs.setNull(3,java.sql.Types.VARCHAR);
-            parancs.executeUpdate();
+            return parancs.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
+            return 0;
         }
     }
     
